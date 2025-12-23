@@ -1,0 +1,554 @@
+/* Main Container */
+.session-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 2rem;
+}
+
+.session-menu-container {
+    width: 60%;
+    max-width: 100%;
+    border-radius: 24px;
+    padding: 1.8rem 2.5rem;
+    /* Further reduced vertical padding */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    /* Further reduced from 1rem */
+    height: 670px;
+    /* Fixed height - no vertical growth */
+
+    /* Premium Glass Styles */
+    background: rgba(13, 4, 7, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    /* Blur centralized in index.css */
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(216, 27, 96, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(216, 27, 96, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(216, 27, 96, 0.4);
+    }
+}
+
+/* Tabs */
+.tab-header {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    display: flex;
+    padding: 4px;
+    align-self: center;
+    width: fit-content;
+    margin-bottom: 0.3rem;
+    /* Reduced from 0.5rem */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+    height: 36px;
+    /* Reduced from 40px */
+    padding: 0 2.2rem;
+    /* Increased to prevent cutoff */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #999;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    /* Slightly smaller */
+    white-space: nowrap;
+}
+
+.tab-btn.active {
+    background: #D81B60;
+    color: #fff;
+}
+
+.tab-btn.active:hover {
+    animation: glowPulse 1.5s infinite ease-in-out;
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Content Layouts */
+.session-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    /* Reduced for compactness */
+    position: relative;
+    width: 100%;
+    flex: 1;
+    overflow-y: hidden;
+}
+
+.create-layout {
+    display: grid;
+    grid-template-columns: 1fr 0.75fr;
+    /* Narrower info column */
+    gap: 1.5rem;
+    /* Reduced */
+}
+
+.join-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* Reduced from 1.5rem */
+}
+
+/* Harmonized Formatting */
+.form-column,
+.form-section,
+.info-column,
+.info-section {
+    padding-top: 0.5rem;
+    /* Strictly matched for header alignment */
+}
+
+/* Form Styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    /* Reduced from 0.5rem */
+    margin-bottom: 0.8rem;
+    /* Reduced from 1.2rem */
+}
+
+.input-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.1rem;
+}
+
+/* Fix dropdown option visibility */
+.input-group select option {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 0.5rem;
+}
+
+
+/* Specific width constraints */
+.input-group input[type="text"] {
+    max-width: 200px;
+    /* Limit username field width */
+}
+
+.row-inputs .input-group select {
+    max-width: 160px;
+    /* Let selects fill their grid cell */
+}
+
+.input-group textarea {
+    width: 100%;
+    /* Textarea takes full width */
+    resize: vertical;
+}
+
+.row-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Join tab: Make Session ID input wider */
+.join-layout .row-inputs {
+    grid-template-columns: 1fr 2fr;
+    /* Session ID gets more space */
+}
+
+.join-layout .row-inputs .input-group:nth-child(2) input[type="text"] {
+    max-width: 600px;
+    /* Session ID gets more width */
+}
+
+
+/* New: All inputs in one row */
+.row-inputs-all {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+
+.helper-text {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 4px;
+}
+
+/* Information Container (Shared) */
+.dark-glass {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+/* Info Headers (Standardized) */
+.info-header {
+    background: #D81B60;
+    width: fit-content;
+    height: 30px;
+    /* Reduced from 38px */
+    display: flex;
+    align-items: center;
+    padding: 0 1.2rem;
+    /* Reduced padding */
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    /* Slightly smaller */
+    margin-bottom: 1rem;
+    /* Reduced from 1.5rem */
+    white-space: nowrap;
+}
+
+.info-box {
+    padding: 1rem;
+    /* Further reduced */
+    height: 95%;
+    width: 100%;
+    min-width: 255px;
+}
+
+.info-body p {
+    font-size: 0.85rem;
+    /* Smaller */
+    line-height: 1.35;
+    /* Tighter */
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    /* Further reduced */
+}
+
+/* Join Tab Banner Layout */
+.info-banner {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    /* Further reduced */
+    position: relative;
+    overflow: hidden;
+    min-height: 175px;
+    /* Further reduced */
+}
+
+.info-banner-content {
+    flex: 1;
+    z-index: 2;
+    padding-right: 280px;
+}
+
+.info-banner-content .intro-text {
+    font-size: 0.9rem;
+    /* Slightly smaller */
+    margin-bottom: 0.8rem;
+    /* Reduced from 1.2rem */
+    opacity: 0.9;
+    line-height: 1.3;
+    /* Tighter */
+}
+
+.info-grid-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Reduced from 0.7rem */
+}
+
+.info-item-horiz {
+    font-size: 0.85rem;
+    /* Smaller for compactness */
+    line-height: 1.3;
+    /* Tighter */
+}
+
+.info-banner-mascot {
+    position: absolute;
+    right: 15px;
+    bottom: -110px;
+    height: 120%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.info-banner-mascot img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Footer & Actions */
+.session-footer {
+    display: flex;
+    gap: 1rem;
+    /* Reduced from 1.2rem */
+    margin-top: auto;
+    padding-top: 0.6rem;
+    /* Further reduced */
+    position: relative;
+    z-index: 5;
+}
+
+.action-btn {
+    padding: 0.7rem 2.5rem;
+    /* Reduced padding */
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    /* Slightly smaller */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn.primary {
+    background: #D81B60;
+    color: #fff;
+}
+
+.action-btn.primary:hover {
+    background: #ec407a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(216, 27, 96, 0.6);
+    animation: glowPulse 1.5s infinite ease-in-out;
+}
+
+.action-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+/* Hidden Mascot Create */
+.mascot-container-create {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .session-menu-overlay {
+        padding: 1rem 0.5rem;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .session-menu-container {
+        width: 95%;
+        padding: 1rem;
+        height: auto;
+        max-height: none;
+        margin: 0 auto;
+    }
+
+    .session-content {
+        overflow-y: visible;
+    }
+
+    /* Tabs */
+    .tab-btn {
+        padding: 0 1rem;
+        font-size: 0.75rem;
+        height: 34px;
+    }
+
+    /* Convert grid layouts to single column */
+    .create-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .row-inputs,
+    .row-inputs-all,
+    .join-layout .row-inputs {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    /* Form inputs */
+    .input-group {
+        margin-bottom: 0.6rem;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Fix dropdown to stay within viewport */
+    .input-group select {
+        max-width: 100%;
+        position: relative;
+    }
+
+    .input-group input[type="text"],
+    .row-inputs .input-group select,
+    .join-layout .row-inputs .input-group:nth-child(2) input[type="text"] {
+        max-width: 100%;
+    }
+
+    /* Info sections */
+    .info-box {
+        padding: 0.8rem;
+        min-width: unset;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .info-header {
+        font-size: 0.85rem;
+        padding: 0 1rem;
+        height: 28px;
+        margin-bottom: 0.8rem;
+    }
+
+    .info-body p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    /* Join banner */
+    .info-banner {
+        padding: 1rem;
+        min-height: auto;
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .info-banner-content {
+        padding-right: 0;
+        padding-bottom: 0.5rem;
+        width: 100%;
+    }
+
+    .info-banner-content .intro-text {
+        font-size: 0.85rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .info-item-horiz {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .info-banner-mascot {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        height: auto;
+        align-self: center;
+        margin-top: 0.5rem;
+    }
+
+    .info-banner-mascot img {
+        max-height: 120px;
+        width: auto;
+    }
+
+    /* Footer */
+    .session-footer {
+        flex-direction: column-reverse;
+        gap: 0.8rem;
+    }
+
+    .action-btn {
+        width: 100%;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.9rem;
+        min-height: 48px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .session-menu-container {
+        width: 80%;
+        padding: 1.5rem 2rem;
+    }
+
+    .tab-btn {
+        padding: 0 1.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* Keep 2-column layout on tablet */
+    .create-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 0.8rem 1.1rem;
+        font-size: 1rem;
+    }
+
+    .info-box {
+        padding: 0.9rem;
+    }
+
+    .action-btn {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+}

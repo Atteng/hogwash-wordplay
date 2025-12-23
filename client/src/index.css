@@ -1,0 +1,83 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  /* Allow scrolling */
+  background-color: #0d0407;
+  color: #fff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Team Colors */
+  --team-a: #ff007f;
+  /* Neon Pink */
+  --team-b: #ffffff;
+  /* White */
+  --team-c: #CD853F;
+  /* Brown/Bronze */
+  --team-d: #00ff00;
+  /* Neon Green */
+}
+
+.App {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  /* Allow growth */
+  overflow-y: auto;
+  /* Allow scrolling */
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+}
+
+/* Real background div - this is what gets blurred by backdrop-filter */
+.app-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  /* Dark overlay */
+  filter: brightness(0.7);
+}
+
+/* CENTRALIZED GLASS BLUR - All glass elements use this */
+.glass-panel,
+.menu-content,
+.session-menu-container {
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Base glass styling */
+.glass-panel {
+  background: rgba(13, 4, 7, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

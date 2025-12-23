@@ -1,0 +1,206 @@
+/* Main Container - Base Theme Only */
+.menu-screen {
+    width: 100vw;
+    height: 100vh;
+    height: 100vh;
+    /* Background managed by App.js */
+    background: transparent;
+    background-size: cover;
+    /* Maintain aspect ratio */
+    background-position: top center;
+    /* Prioritize the top of the image */
+    background-repeat: no-repeat;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Align content to bottom */
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    animation: screenFadeIn 1.5s ease-out forwards;
+}
+
+.menu-screen.fade-out {
+    animation: screenFadeOut 0.8s ease-in forwards;
+}
+
+@keyframes screenFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes screenFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.menu-content {
+    width: 100%;
+    /* Blur centralized in index.css */
+    background: rgba(13, 4, 7, 0.6);
+    padding: 1.5rem 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -8px 32px 0 rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: row;
+    /* Horizontal layout */
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+}
+
+.menu-content.exit-slide-down {
+    animation: slideDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+.menu-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.menu-title {
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #f06292);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.menu-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.menu-actions {
+    display: flex;
+    flex-direction: row;
+    /* Buttons side by side */
+    gap: 1rem;
+    align-items: center;
+}
+
+.menu-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.menu-btn.primary {
+    background: #D81B60;
+    color: white;
+}
+
+.menu-btn.primary:hover {
+    background: #ec407a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
+}
+
+.menu-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-content {
+        flex-direction: column;
+        padding: 1.5rem 1.5rem;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .menu-title {
+        font-size: 1.5rem;
+    }
+
+    .menu-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.8rem;
+    }
+
+    .menu-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+        min-height: 48px;
+        /* Touch-friendly */
+    }
+
+    .menu-actions span {
+        display: none;
+        /* Hide version text on mobile */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .menu-content {
+        padding: 1.5rem 2.5rem;
+        gap: 2rem;
+    }
+
+    .menu-title {
+        font-size: 1.8rem;
+    }
+
+    .menu-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}

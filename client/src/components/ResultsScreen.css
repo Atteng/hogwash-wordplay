@@ -1,0 +1,371 @@
+/* Results Screen Container */
+.results-screen {
+    width: 100vw;
+    min-height: 100vh;
+    /* Allow growth */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Ensure top-down flow */
+    padding: 3rem 1rem;
+    /* More balanced padding */
+    position: relative;
+    /* Background handled by App.js (menu-background4.jpg) */
+    overflow-y: auto;
+    /* Allow scrolling */
+    overflow-x: hidden;
+}
+
+/* Header Section */
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    z-index: 10;
+}
+
+.game-over-title {
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+    color: #D81B60;
+    /* Pink color */
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    line-height: 1;
+}
+
+.congrats-text {
+    color: #ccc;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
+.congrats-text strong {
+    color: #fff;
+}
+
+/* Action Buttons */
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.icon-btn {
+    background: rgba(45, 10, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #D81B60;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
+}
+
+.icon-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    /* Make icons white */
+}
+
+/* Main Content Wrapper */
+.results-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    /* Let content dictate height */
+}
+
+
+/* Leaderboard Table */
+.results-leaderboard-container {
+    flex: none;
+    /* Disable flex shrinking */
+    width: 100%;
+    /* Max width handled by media queries or base */
+    background: rgba(30, 10, 20, 0.85);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    /* Let content dictate height */
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    /* Contain content/corners, but allow growth via height: auto */
+    margin-bottom: 2rem;
+}
+
+.table-header {
+    background: #D81B60;
+    padding: 1rem 1.5rem;
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1fr 1.2fr;
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.table-body {
+    flex: none;
+    overflow: visible;
+    padding: 0.5rem 0;
+    height: auto;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1fr 1.2fr;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    color: #fff;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.table-row.highlight {
+    background: rgba(216, 27, 96, 0.15);
+    /* Slight pink highlight for user */
+}
+
+/* Column Alignments */
+.col.rank {
+    text-align: left;
+}
+
+.col.name {
+    text-align: left;
+}
+
+.col.score {
+    text-align: left;
+}
+
+.col.words {
+    text-align: center;
+}
+
+.text-pink {
+    color: #ff4081;
+    font-weight: 700;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .results-screen {
+        padding: 1rem;
+    }
+
+    /* Header */
+    .results-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .game-over-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .congrats-text {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        margin-top: 0.8rem;
+    }
+
+    /* Action buttons */
+    .result-actions {
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .icon-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .icon-btn img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Main content */
+    .results-content {
+        max-width: 95%;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        /* Let it spill over */
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Leaderboard */
+    .results-leaderboard-container {
+        max-width: 100%;
+        border-radius: 15px;
+        flex: none;
+        /* Don't shrink */
+        height: auto;
+        overflow: hidden;
+        /* Ensure box covers content */
+    }
+
+    .table-body {
+        flex: none;
+        /* Don't flex, just block */
+        height: auto;
+        overflow: visible;
+        /* Don't scroll internally, scroll page */
+    }
+
+    .table-header {
+        padding: 0.8rem 1rem;
+        grid-template-columns: 0.6fr 2fr 0.9fr 1fr;
+        font-size: 0.75rem;
+    }
+
+    .table-row {
+        padding: 0.6rem 1rem;
+        grid-template-columns: 0.6fr 2fr 0.9fr 1fr;
+        font-size: 0.75rem;
+    }
+
+    .col.rank,
+    .col.name,
+    .col.score {
+        text-align: left;
+    }
+
+    .col.words {
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .results-screen {
+        padding: 1.5rem;
+    }
+
+    .game-over-title {
+        font-size: 3.5rem;
+        letter-spacing: 3px;
+    }
+
+    .congrats-text {
+        font-size: 0.85rem;
+    }
+
+    .results-content {
+        max-width: 800px;
+        /* Match desktop for safer landscape fit */
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        flex: 0 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .results-leaderboard-container {
+        max-width: 550px;
+        flex: none;
+        /* Don't shrink */
+        height: auto;
+    }
+
+    .table-header,
+    .table-row {
+        padding: 0.9rem 1.3rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 480px) {
+    .game-over-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .congrats-text {
+        font-size: 0.7rem;
+    }
+
+    .table-header,
+    .table-row {
+        font-size: 0.7rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .result-actions {
+        flex-wrap: wrap;
+    }
+}
