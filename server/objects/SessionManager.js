@@ -228,6 +228,13 @@ class SessionManager {
         const session = this.sessions.get(sessionId);
         if (!session) return { error: 'Session not found' };
 
+        // SAFETY: If a game is already running (e.g. double click), stop it first!
+        if (this.gameManagers.has(sessionId)) {
+            console.log(`[SessionManager] Stopping existing game for ${sessionId} before start.`);
+            this.gameManagers.get(sessionId).endGame();
+            this.gameManagers.delete(sessionId);
+        }
+
         session.status = 'GAME';
         session.startTime = Date.now();
 
