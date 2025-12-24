@@ -46,11 +46,7 @@ const CrosswordGrid = ({ grid, cursors, socket, sessionId, onCellClick }) => {
     const inputRef = React.useRef(null);
 
     // Focus hidden input when active cell changes
-    useEffect(() => {
-        if (activeCell && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [activeCell]);
+    // (Removed auto-focus useEffect to fix mobile keyboard issues)
 
     // Handle Hidden Input Change (For Letters)
     const handleInputChange = (e) => {
@@ -115,6 +111,12 @@ const CrosswordGrid = ({ grid, cursors, socket, sessionId, onCellClick }) => {
 
     const handleCellClick = React.useCallback((r, c) => {
         setActiveCell({ r, c });
+
+        // Trigger focus immediately on user interaction
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+
         if (socket && sessionId) {
             socket.emit('CMD_SELECT_CELL', { sessionId, x: c, y: r });
         }
@@ -137,13 +139,14 @@ const CrosswordGrid = ({ grid, cursors, socket, sessionId, onCellClick }) => {
                 ref={inputRef}
                 type="text"
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
+                    top: '-1000px',
+                    left: '-1000px',
                     opacity: 0,
-                    pointerEvents: 'none',
-                    height: 0,
-                    width: 0,
-                    // Prevent zooming on iOS by ensuring font size is >= 16px
-                    fontSize: '16px'
+                    height: '1px',
+                    width: '1px',
+                    fontSize: '16px',
+                    pointerEvents: 'none'
                 }}
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyDown}
