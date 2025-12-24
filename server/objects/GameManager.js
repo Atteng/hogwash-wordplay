@@ -294,11 +294,18 @@ class GameManager {
         } else if (this.mode === 'Teams') {
             const p = this.players.get(playerId);
             if (p && p.teamId) {
+                // Broadcast to teammates
                 Array.from(this.players.values()).forEach(tm => {
                     if (tm.teamId === p.teamId && tm.socketId) {
                         this.io.to(tm.socketId).emit('EVT_GRID_UPDATE', { grid, clues: this.baseClues });
                     }
                 });
+            } else {
+                // Fallback: If player has no team (e.g. join bug), send update just to them
+                // This prevents the UI from appearing "frozen" if they are in limbo
+                if (p && p.socketId) {
+                    this.io.to(p.socketId).emit('EVT_GRID_UPDATE', { grid, clues: this.baseClues });
+                }
             }
         } else {
             // Competitive: Send only to me

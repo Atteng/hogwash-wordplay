@@ -43,34 +43,74 @@ const CrosswordGrid = ({ grid, cursors, socket, sessionId, onCellClick }) => {
     const [activeCell, setActiveCell] = useState(null); // { r, c }
 
     // Handle Input
+    const inputRef = React.useRef(null);
+
+    // Focus hidden input when active cell changes
     useEffect(() => {
-        const handleKeyDown = (e) => {
+        if (activeCell && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [activeCell]);
+
+    // Handle Hidden Input Change (For Letters)
+    const handleInputChange = (e) => {
+        if (!activeCell || !socket || !sessionId) return;
+
+        const val = e.target.value.toUpperCase();
+        // We only care about the last character typed if it's a letter
+        const lastChar = val.slice(-1);
+
+        if (lastChar.match(/^[A-Z]$/)) {
+            const { r, c } = activeCell;
+            socket.emit('CMD_INPUT_LETTER', {
+                sessionId,
+                x: c, y: r,
+                letter: lastChar
+            });
+        }
+
+        // Reset input so we can type the same letter again if needed
+        e.target.value = '';
+    };
+
+    // Handle Special Keys (Backspace) on Hidden Input
+    const handleInputKeyDown = (e) => {
+        if (!activeCell || !socket || !sessionId) return;
+        const { r, c } = activeCell;
+
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            socket.emit('CMD_INPUT_LETTER', {
+                sessionId,
+                x: c, y: r,
+                letter: ''
+            });
+        }
+    };
+
+    // Global Keydown Handler (Desktop Unfocused Fallback)
+    useEffect(() => {
+        const handleGlobalKeyDown = (e) => {
             if (!activeCell || !socket || !sessionId) return;
+
+            // If the hidden input is focused, let handleInputKeyDown handle it (avoid double)
+            if (document.activeElement === inputRef.current) return;
+
             const { r, c } = activeCell;
 
-            // Check for letter (A-Z)
             if (e.key.match(/^[a-zA-Z]$/)) {
                 socket.emit('CMD_INPUT_LETTER', {
-                    sessionId,
-                    x: c, y: r,
-                    letter: e.key.toUpperCase()
+                    sessionId, x: c, y: r, letter: e.key.toUpperCase()
                 });
             }
-
-            // Backspace/Delete (Clear cell)
             if (e.key === 'Backspace' || e.key === 'Delete') {
                 socket.emit('CMD_INPUT_LETTER', {
-                    sessionId,
-                    x: c, y: r,
-                    letter: ''
+                    sessionId, x: c, y: r, letter: ''
                 });
             }
-
-            // Arrow implementation (optional future polish)
-            // Arrows logic requires knowing grid boundaries...
         };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+
+        window.addEventListener('keydown', handleGlobalKeyDown);
+        return () => window.removeEventListener('keydown', handleGlobalKeyDown);
     }, [activeCell, socket, sessionId]);
 
     const handleCellClick = React.useCallback((r, c) => {
@@ -91,7 +131,24 @@ const CrosswordGrid = ({ grid, cursors, socket, sessionId, onCellClick }) => {
     };
 
     return (
-        <div className="crossword-grid">
+        <div className="crossword-grid" onClick={() => inputRef.current && inputRef.current.focus()}>
+            {/* Hidden Input for Mobile Keyboard */}
+            <input
+                ref={inputRef}
+                type="text"
+                style={{
+                    position: 'absolute',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    height: 0,
+                    width: 0,
+                    // Prevent zooming on iOS by ensuring font size is >= 16px
+                    fontSize: '16px'
+                }}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+                autoComplete="off"
+            />
             {grid.map((row, r) => (
                 <div key={r} className="grid-row" style={{ display: 'contents' }}>
                     {row.map((cell, c) => (

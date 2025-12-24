@@ -62,6 +62,21 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('CMD_JOIN_TEAM', (data) => {
+    const { sessionId, teamId } = data;
+    const playerId = SessionManager.getPlayerId(socket.id);
+
+    if (playerId) {
+      const result = SessionManager.joinTeam(sessionId, playerId, teamId);
+      if (result.error) {
+        socket.emit('ERR_SESSION', { msg: result.error });
+      } else {
+        const sSession = SessionManager.serializeSession(sessionId);
+        io.to(sessionId).emit('EVT_SESSION_UPDATE', { session: sSession });
+      }
+    }
+  });
+
   socket.on('CMD_REJOIN_SESSION', (data) => {
     const { sessionId, playerId } = data;
     console.log(`Check Rejoin: ${sessionId} / ${playerId} for ${socket.id}`);
